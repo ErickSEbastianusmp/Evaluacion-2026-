@@ -14,10 +14,13 @@ public class SolicitudesController : Controller
         _context = context;
     }
 
-    // GET: Solicitudes
+    // GET: Solicitudes (Consulta LINQ ToListAsync ordenado por fecha descendente)
     public async Task<IActionResult> Index()
     {
-        var solicitudes = await _context.Solicitudes.ToListAsync();
+        var solicitudes = await _context.Solicitudes
+            .OrderByDescending(s => s.FechaRegistro)
+            .ToListAsync();
+
         return View(solicitudes);
     }
 
